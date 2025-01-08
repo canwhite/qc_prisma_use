@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "prisma-test"
+version = "0.1.0"
+description = ""
+authors = ["qiaochao <qiaochao@icourt.cc>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+prisma = "^0.15.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

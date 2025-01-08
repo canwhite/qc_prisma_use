@@ -1,0 +1,42 @@
+// database
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://zack:715705@Qc123@localhost:5432/mydatabase"
+}
+
+// generator
+generator client {
+  provider             = "prisma-client-py"
+  recursive_type_depth = 5
+}
+
+// data models
+model Post {
+  id        Int     @id @default(autoincrement())
+
+  title     String
+
+  // ? 表示该字段是可选的（可以为空）
+  content   String?
+
+  views     Int     @default(0)
+
+  published Boolean @default(false)
+
+  // 这里定义了一个外键关系
+  // author字段表示这篇帖子属于哪个用户，通过author_id字段与User表的id字段关联
+  // User? 表示这个关系是可选的，即一篇帖子可以没有作者
+  // @relation 注解用于定义表之间的关系
+  // fields: [author_id] 指定当前表中用于关联的字段
+  // references: [id] 指定目标表中被关联的字段
+  author    User?   @relation(fields: [author_id], references: [id])
+  
+  author_id Int?
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
